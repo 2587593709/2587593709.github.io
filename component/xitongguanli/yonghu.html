@@ -1,0 +1,152 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>用户管理</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="index.html">首页</a>
+			</li>
+			<li>
+				<a>系统管理</a>
+			</li>
+			<li class="active">
+				<strong>用户管理</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">查询条件</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group" style="width:100%">
+					<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">登陆名：</label>
+					<input type="text" id="appNameQuery" class="form-control" ng-model='logo_name' style="width: 200px" />
+					<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">中文名：</label>
+					<input type="text" id="appNameQuery" class="form-control" ng-model='china_name' style="width: 200px" />
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			<p style="display: inline-block;" ng-repeat='x in narr2'>
+				<button  type="button" class="btn btn-primary" ng-click='do(x.BTN_FUN_LINK)' style="margin: 2px;"><i class="fa fa-plus"></i>{{x.BTN_NAME}}</button>
+			</p>
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th><input type="checkbox" name="box" id="" ng-model="all" ng-click='alllist($event)' /></th>
+						<th>图标</th>
+						<th>登录名</th>
+						<th>中文名</th>
+						
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td><input type="checkbox" name="{{x.ID}}" id="" ng-checked="all" ng-click='idlist($event)' value="{{$index}}" /></td>
+						<td>{{x.PASSWORD}}</td>
+						<td>{{x.USER_NAME}}</td>
+						<td>{{x.NAME}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+	<!--添加与修改-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="chakan">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">用户信息管理</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline" novalidate>
+						<div class="form-group" style="width:100%">
+							<label for="appNameQuery" style="margin: 10px">登录名：</label>
+							<input type="text" id="appNameQuery" class="form-control" ng-model='m1' style="width: 150px;border-color:{{red}};" />
+							<label for="appNameQuery" style="margin: 10px;">中文名：</label>
+							<input type="text" id="appNameQuery" class="form-control" ng-model='m2' style="width: 150px;border-color:{{red}};" />
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='save()' style="margin: 10px "><i class="fa fa-search"></i>保存</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl2()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	<!--用户授权-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="yonghushouquan">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">用户授权操作</h4>
+				</div>
+				<div class="modal-body">
+					<div class="form-group" style="width:100%;">
+						<form class="form-inline" style="margin-bottom: 10px;">
+							<label for="appNameQuery" style="margin: 10px">用户名称：</label>
+							<input type="text" id="appNameQuery" class="form-control" ng-model='ms' style="width: 150px;" />
+						</form>
+						<div class="table-responsive">
+							<table class="table   table-hover" style="font-family: Helvetica, 微软雅黑;">
+
+								<tr>
+									<td>
+										<select class=" form-control" style="width:200px;height: 400px;" ng-model="btnSelect" multiple="multiple" ng-options="btnSelect.ID as btnSelect.NAME for btnSelect in list_no">
+											<option value="" ng-disabled='true' class="bg-primary">--未选操作--</option>
+										</select>
+									</td>
+									<td>
+										<button ng-click="from()">-->分配</button>
+										<br/>
+										<button ng-click="to()"> <--取消 </button>
+									</td>
+									<td>
+										<select class=" form-control" style="width:200px;height: 400px;" ng-model="btntoSelect" multiple="multiple" ng-options="btntoSelect.ID as btntoSelect.NAME for btntoSelect in list_yes">
+											<option value="" ng-disabled='true' class="bg-primary">--已选操作--</option>
+										</select>
+									</td>
+								</tr>
+							</table>
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='yonghu_save()' style="margin: 10px "><i class="fa fa-search"></i>保存</button>
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+</div>

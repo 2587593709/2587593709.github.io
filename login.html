@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">-->
+		<title>仓库管理系统 | Login</title>
+		<link rel="Shortcut Icon" href="static/img/logo.ico">
+		<link href="static/css/kcss/bootstrap.min.css" rel="stylesheet">
+		<link href="libs/font-awesome/css/font-awesome.css" rel="stylesheet">
+		<!--<link href="static/css/kcss/animate.css" rel="stylesheet">
+		<link href="static/css/kcss/style.css" rel="stylesheet">-->
+		<style type="text/css">
+			.gray-bg {
+				/*background: #3d6384;*/
+				background: url('static/img/bg5.jpg') no-repeat center center fixed;
+				-webkit-background-size: cover;
+				-moz-background-size: cover;
+				-o-background-size: cover;
+				background-size: cover;
+			}
+			.login_body {
+				width: 100%;
+				height: 100%;
+				background: #ebf4fe!important;
+				overflow: hidden;
+			}
+			.login_im {
+				width: 500px;
+				height: 400px;
+				background: white;
+				border-radius: 20px;
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -250px;
+				margin-top: -200px;
+				padding: 60px;
+			}
+			.login_im>h1 {
+				text-align: center;
+				font-size: 32px;
+				color: #444444;
+			}		
+			.login_inp {
+				margin-top: 20px;
+			}		
+		</style>
+	</head>
+	<body class="gray-bg" >
+		<div class="login_body">
+			<div class="login_im">
+				<h1>仓库管理系统</h1>
+				<div class="input-group  login_inp">
+					<span class="input-group-addon" id="sizing-addon3"><i class="fa fa-user" aria-hidden="true"></i></span>
+					<input type="text" class="form-control" placeholder="请输入用户名" aria-describedby="sizing-addon3" id="login_text" />
+				</div>
+				<div class="input-group  login_inp">
+					<span class="input-group-addon" id="sizing-addon3"><i class="fa fa-lock" aria-hidden="true"></i></span>
+					<input type="password" class="form-control" placeholder="请输入密码" aria-describedby="sizing-addon3" id="login_pass" />
+				</div>
+
+				<div class="form-group">
+					<button type="button" class="btn btn-primary login_determine" style="width: 100%;margin-top: 50px;">登陆</button>
+				</div>
+			</div>
+		</div>
+		<!--<div class="middle-box text-center loginscreen animated fadeInDown" >
+			<div>
+				<div>
+					<h1 class="logo-name">+</h1>
+				</div>
+				<h3>Welcome to 仓库管理系统</h3>
+				<p>
+				</p>
+				<p></p>
+				<div>
+					<div class="form-group">
+						<input type="text" class="form-control" placeholder="Username" required="" id="login_text">
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" placeholder="Password" required="" id="login_pass">
+						<span class="login_tip login_tip2"></span>
+					</div>
+					<button type="button" class="btn btn-primary block full-width m-b login_determine">登录</button>
+				</div>
+			</div>
+		</div>-->
+		<!-- Mainly scripts -->
+		<script src="static/js/kjs/jquery-2.1.1.js"></script>
+		<script src="libs/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kjs/bootstrap.min.js"></script>
+		<script src="libs/cookie/cookie.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/logo.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

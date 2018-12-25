@@ -1,0 +1,136 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>首页</h2>
+		<!--<ol class="breadcrumb">
+			<li>
+				<a href="#/home">首页</a>
+			</li>
+			<li>
+				<a>首页</a>
+			</li>
+			<li class="active">
+				<strong>首页</strong>
+			</li>
+		</ol>-->
+	</div>
+	<!--<div class="col-lg-2">
+
+	</div>-->
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">超期设备</div>
+		<div class="panel-body">
+			<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			
+				<button type="button" class="btn btn-primary"  style="margin: 2px;" ng-click='daochu1()'><i class="fa fa-plus"></i>导出</button>
+			
+		</div>
+		
+		<div class="table-responsive" >
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>货位</th>
+						<th>箱条码</th>
+						<th>表条码</th>
+						<th>设备类别</th>
+						<th>类型</th>
+						<th>接线方式</th>
+						<th>电流</th>
+						<th>电压</th>
+						<th>电流变比</th>
+						<th>制造单位</th>
+						<th>最近检测时间</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td>{{x.LOC_BAR_CODE}}</td>
+						<td>{{x.BOX_BAR_CODE}}</td>
+						<td>{{x.BAR_CODE}}</td>
+						<td>{{x.EQUIP_CATEG_NAME}}</td>
+						<td>{{x.TYPE_NAME}}</td>
+						<td>{{x.WIRING_MODE_NAME}}</td>
+						<td>{{x.RATED_CURRENT_NAME}}</td>
+						<td>{{x.VOLT_NAME}}</td>
+						<td>{{x.RC_RATIO_CODE}}</td>
+						<td>{{x.MANUFACTURER_NAME}}</td>
+						<td>{{x.LATEST_CHK_DATE}}</td>
+						
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+		</div>
+	</div>
+	
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">一月预警</div>
+		<div class="panel-body">
+			<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			
+				<button type="button" class="btn btn-primary"  style="margin: 2px;" ng-click='daochu2()'><i class="fa fa-plus"></i>导出</button>
+			
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th>货位</th>
+						<th>箱条码</th>
+						<th>表条码</th>
+						<th>设备类别</th>
+						<th>类型</th>
+						<th>接线方式</th>
+						<th>电流</th>
+						<th>电压</th>
+						<th>电流变比</th>
+						<th>制造单位</th>
+						<th>最近检测时间</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists2.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td>{{x.LOC_BAR_CODE}}</td>
+						<td>{{x.BOX_BAR_CODE}}</td>
+						<td>{{x.BAR_CODE}}</td>
+						<td>{{x.EQUIP_CATEG_NAME}}</td>
+						<td>{{x.TYPE_NAME}}</td>
+						<td>{{x.WIRING_MODE_NAME}}</td>
+						<td>{{x.RATED_CURRENT_NAME}}</td>
+						<td>{{x.VOLT_NAME}}</td>
+						<td>{{x.RC_RATIO_CODE}}</td>
+						<td>{{x.MANUFACTURER_NAME}}</td>
+						<td>{{x.LATEST_CHK_DATE}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount2" current-page="currentPage2" on-page-change="onPageChange2()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+		</div>
+	</div>
+	
+	
+</div>

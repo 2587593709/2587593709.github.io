@@ -1,0 +1,294 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>入库计划管理</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="#/home">首页</a>
+			</li>
+			<li>
+				<a>入库管理</a>
+			</li>
+			<li class="active">
+				<strong>入库计划管理</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">查询条件</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group" style="width:100%">
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px">营销单号：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='yingxiao_code' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="devLanguageQuery2" style="margin: 10px">设备类别：</label>
+						<select class=" form-control" id="devLanguageQuery2" search="search" style="width: 200px" ng-model='shebei_lei'>
+							<option value="" selected="selected">--请选择--</option>
+							<option value="{{x.VALUE}}" ng-repeat='x in shebeimenu'>{{x.NAME}}</option>
+						</select>
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery3" style="margin: 10px;margin-right: 36px;">时间：</label>
+						<input type="text" id="time_b" class="form-control" ng-model='time_b' style="width: 200px" />
+						<label for="appNameQuery3" style="margin: 10px">--</label>
+						<input type="text" id="time_s" class="form-control" ng-model='time_s' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery4" style="margin: 10px;margin-right: 36px;">状态：</label>
+						<select class=" form-control" id="devLanguageQuery2" search="search" style="width: 200px" ng-model='status'>
+							<option value="">全部</option>
+							<option value="0" selected="selected">未完成</option>
+							<option value="2">完成</option>
+						</select>
+					</div>
+
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			<p style="display: inline-block;" ng-repeat='x in narr2'>
+				<button type="button" class="btn btn-primary" ng-click='do(x.BTN_FUN_LINK)' style="margin: 2px;"><i class="fa fa-plus"></i>{{x.BTN_NAME}}</button>
+			</p>
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th><input type="checkbox" name="box" id="" ng-model="all" ng-click='alllist($event)' /></th>
+						<th>计划单号</th>
+						<th>营销单号</th>
+						<th>任务单号</th>
+						<th>出入库原因</th>
+						<th>状态</th>
+						<th>计划数量</th>
+						<th>完成数量</th>
+						<th>制定时间</th>
+						<th>完成时间</th>
+						<th>设备类别</th>
+						<th>接线方式</th>
+						<th>类型</th>
+						<th>电流</th>
+						<th>电压</th>
+						<th>电流变比</th>
+						<th>制造单位</th>
+						<th>型号</th>
+						<th>通讯方式</th>
+						<th>通讯规约</th>
+						<th>显示方式</th>
+						<th>准确度</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td><input type="checkbox" name="{{x.ID}}" id="" ng-checked="all" ng-click='idlist($event)' value="{{$index}}" /></td>
+						<td>{{x.PLAN_NO}}</td>
+						<td>{{x.APP_NO}}</td>
+						<td>{{x.TASK_ID}}</td>
+						<td>{{x.IO_WH_REASON_NAME}}</td>
+						
+						<td>{{x.STATUS | status}}</td>
+						
+						<td>{{x.BOX_QTY}}</td>												
+						<td>{{x.FINISHED_NUM}}</td>
+						<td>{{x.CREAT_DATE}}</td>
+						<td>{{x.FINISHED_TIME}}</td>
+						<td>{{x.EQUIP_CATEG_NAME}}</td>
+						<td>{{x.WIRING_MODE_NAME}}</td>
+						<td>{{x.TYPE_NAME}}</td>
+
+						<td>{{x.RATED_CURRENT_NAME}}</td>
+						<td>{{x.VOLT_NAME}}</td>
+						<td>{{x.RC_RATIO_NAME}}</td>
+						<td>{{x.MANUFACTURER_NAME}}</td>
+						<td>{{x.MODEL_NAME}}</td>
+						<td>{{x.COMM_MODE}}</td>
+						<td>{{x.COMM_PROT_NAME}}</td>
+						<td>{{x.DISP_MODE}}</td>
+						<td>{{x.AP_PRE_LEVEL_NAME}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+	<!--查看-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="chakans">
+		<div class="modal-dialog" role="document" style="width: 75%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">计划信息查看</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="panel panel-default" style="margin-top: 20px;">
+							<div class="panel-heading">计划信息</div>
+							<div class="panel-body">
+								<form class="form-inline">
+									<div class="form-group" style="width:100%">
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">营销单号：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='yingxiao_code2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="devLanguageQuery2" style="margin: 10px;margin-right: 23px;">任务号：</label>
+											<input type="text" id="devLanguageQuery2" class="form-control" ng-model='renwu_code2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery3" style="margin: 10px;">计划单号：</label>
+											<input type="text" class="form-control" ng-model='jihua_code2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery4" style="margin: 10px;">出入原因：</label>
+											<input type="text" id="appNameQuery4" class="form-control" ng-model='churuyuanying2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">设备类别：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='shebei_lei2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">接线方式：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='jiexianfangshi2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;margin-right: 36px;">类型：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='leixing2' style="width: 492px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;margin-right: 36px;">电流：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='dianliu2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;margin-right: 36px;">电压：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='dianya2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">电流变比：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='dianliubianbi2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">制造单位：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='zhizaodanwei2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">计划数量：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='jihuashuliang2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">完成数量：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='wanchengshuliang2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="devLanguageQuery1" style="margin: 10px;margin-right: 36px;">状态：</label>
+											<select class=" form-control" id="devLanguageQuery1" search="search" style="width: 200px" ng-model='zhuangtai2' ng-options="y.value as y.name for y in PlanStatus">
+											</select>
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">制定时间：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='zhidingshijian2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">完成时间：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='wanchengshijian2' style="width: 200px" />
+										</div>
+
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="panel panel-default">
+							<div class="panel-heading" style="background-color: #FFFFFF;">
+								<form class="form-inline">
+									<div class="form-group" style="width:100%">
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">箱条码：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='xiang_code2' style="width: 200px" />
+											<label for="appNameQuery" style="margin: 10px">表条码：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='biao_code2' style="width: 200px" />
+											<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf2()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+										</div>
+									</div>
+									</from>
+							</div>
+							<div class="table-responsive">
+								<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+									<thead>
+										<tr>
+											<th>序号</th>
+											<th>箱条码</th>
+											<th>表条码</th>
+										</tr>
+									</thead>
+									<tbody id="contentBody">
+										<tr ng-repeat='x in lists2.root'>
+											<td>{{x.ROWNUM_}}</td>
+											<td>{{x.BOX_BAR_CODE}}</td>
+											<td>{{x.BAR_CODE}}</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+						<!-- 分页 -->
+						<div class="pager">
+							<pager page-count="pageCount2" current-page="currentPage2" on-page-change="onPageChange2()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+						</div>
+						<!-- 分页 -->
+					</div>
+					<div class="modal-footer">
+
+						<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</div>
+	<!--同步入库计划-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="tongbujihua">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">同步计划</h4>
+				</div>
+				<div class="modal-body">
+					<div>
+						<label for="appName">请输入流程单号：</label>
+						<input type="text" id="appName" class="form-control" ng-model='liucheng_danhao' />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-primary" style="margin: 10px " ng-click='tongburuku_save()'>确定</button>
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">取消</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+</div>

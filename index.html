@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>仓库管理系统</title>
+		<!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+		<!--<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">-->
+		<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+      		<script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      		<script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    	<![endif]-->
+    	<link rel="Shortcut Icon" href="static/img/logo.ico">
+		<link href="static/css/kcss/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="static/css/kcss/Normalize.css.css"/>
+		<link href="libs/font-awesome/css/font-awesome.css" rel="stylesheet">		
+		<link href="static/css/kcss/animate.css" rel="stylesheet">
+		<link href="static/css/kcss/style.css" rel="stylesheet">
+		<link rel="stylesheet" type="text/css" href="static/js/pagination/page.css"/>				
+		<!--新添-->
+		<!--[if lt IE 10]>
+			<script type="text/javascript">
+			alert('IE版本太低，请升级到ie10后使用');
+			</script>
+		<![endif]-->
+		
+		<!--表格列不换行样式-->
+		<style type="text/css">
+			ul li{
+				list-style: none;
+			}
+			a:focus {
+			outline: none;
+			}
+		   .table-responsive>.table>tbody>tr>td, .table-responsive>.table>tfoot>tr>td, .table-responsive>.table>tfoot>tr>th, .table-responsive>.table>thead>tr>td, .table-responsive>.table>thead>tr>th {
+			        max-width:200px;
+				    word-break:keep-all;/* 不换行 */
+				    white-space:nowrap;/* 不换行 */
+				    overflow:hidden;/* 内容超出宽度时隐藏超出部分的内容 */
+				    text-overflow:ellipsis;/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+			}
+		</style>
+	</head>
+	<body  ng-controller="HomeController_main">
+		<div id="wrapper">
+			<nav class="navbar-default navbar-static-side" role="navigation">
+				<div class="sidebar-collapse">
+					<ul class="nav metismenu" id="side-menu">
+						<li class="nav-header">
+							<div class="dropdown profile-element" > <span>
+                            <img alt="image" class="img-circle" style="width: 41px;height: 41px;" src="static/img/guojia.jpg" />
+                             </span>
+								<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+									<span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">国家电网</strong>
+                             </span> <span class="text-muted text-xs block">STATE&nbsp;GRID<b class="caret"></b></span> </span>
+								</a>
+								<ul class="dropdown-menu animated fadeInRight m-t-xs">
+									<li>
+										<a JavaScript：void(0)  ng-click='shezhi()'>设置</a>
+									</li>
+									<li >
+										<a JavaScript：void(0)  ng-click='xiugaimima()'>修改密码</a>
+									</li>
+									<li class="divider"></li>
+									<li>
+										<a href="login.html">退出</a>
+									</li>
+								</ul>
+							</div>
+							<div class="logo-element">
+								+
+							</div>
+						</li>
+						<li>
+							<a href="#/home"><i class="fa fa-home" aria-hidden="true"></i> <span class="nav-label">首页</span> </a>
+
+						</li>
+						<!--track by $index  class="nav nav-second-level collapse"-->
+
+						<li ng-repeat='x in narr' metis="">
+							<a JavaScript：void(0) ><i class="fa fa-heart  aria-hidden="true""></i> <span class="nav-label">{{x.FATHERMENU_NAME}}</span><span class="fa arrow"></span></a>
+							<ul class="nav nav-second-level collapse">
+
+								<li ng-repeat='y in x.CHILDMENU_NAME'>
+									<a href="#/{{x.HREF[$index]}}" ><i class="fa fa-home" aria-hidden="true"></i> {{y}}</a>									
+								</li>
+
+							</ul>
+						</li>
+
+					</ul>
+
+				</div>
+			</nav>
+			<div id="page-wrapper" class="gray-bg" style="padding-bottom: 60px;">
+				<div class="row border-bottom">
+					<nav class="navbar navbar-static-top  " role="navigation" style="margin-bottom: 0" ;>
+						<div class="navbar-header">
+							<a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href=""><i class="fa fa-bars"></i> </a>
+						</div>
+						<ul class="nav navbar-top-links navbar-right">
+							<li>
+								<span class="m-r-sm text-muted welcome-message"><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;欢迎{{user}}</span>
+							</li>
+							<li>
+								<a href="" ng-click='shezhi()'>
+									<i class="fa fa-cog fa-fw"></i> 设置
+								</a>
+							</li>
+							<li >
+								<a href="" ng-click='xiugaimima()'>
+									<i class="fa fa-pencil fa-fw"></i> 修改密码
+								</a>
+							</li>
+							<li>
+								<a href="login.html">
+									<i class="fa fa-sign-out"></i> 退出
+								</a>
+							</li>
+						</ul>
+
+					</nav>
+				</div>
+
+				<div ng-view>
+						loading...
+				</div>
+				
+				<!--脚部-->
+				<div class="footer"  >
+		            <!--<div class="pull-right">
+		                10GB of <strong>250GB</strong> Free.
+		            </div>-->
+		            <div>
+		                <strong>杭州世楷自动化设备有限公司</strong> 版权所有 &copy; 2016-2017
+		            </div>
+	        	</div>  
+	        	<!--脚部-->
+			</div>
+		</div>
+				
+		<!-- Mainly scripts -->
+		<script src="static/js/kjs/jquery-2.1.1.js"></script>
+		<script src="libs/layer/layer.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/laydate/laydate.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kjs/jquery.metisMenu.js"></script>
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<!--	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>	-->
+		<!--<script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>-->
+		<!--<script src="https://apps.bdimg.com/libs/angular-route/1.3.13/angular-route.js"></script>-->
+		<script src="libs/angular/angular.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="libs/angular/angular-route.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/pagination/page.js" type="text/javascript" charset="utf-8"></script>
+		<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+		<!--<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>-->
+		<script src="static/js/kjs/bootstrap.min.js"></script>
+
+		<script src="static/js/angular-router/router.js" type="text/javascript" charset="utf-8"></script>
+		<script src="config/http.js" type="text/javascript" charset="utf-8"></script>
+				
+		<script src="static/js/main.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/shouye.js" type="text/javascript" charset="utf-8"></script>
+						
+		<script src="static/js/xitongguanli/menuManage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/xitongguanli/anniuguanli.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/xitongguanli/jiaoseManage.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/xitongguanli/yonghu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/xitongguanli/yunxingcanshu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/xitongguanli/yingxiaoshangchuan.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="static/js/jichuguanli/jichushuju.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/jichuguanli/wuliaojibenxinxi.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/jichuguanli/changjiaxinxi.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="static/js/kufangguanli/kuquguanli.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kufangguanli/huoweiguanli.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kufangguanli/huoweixiangweihu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kufangguanli/xiangbiaoweihu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kufangguanli/huoweixianshi.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/kufangguanli/kucunchaxun.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="static/js/rizhiguanli/xitongcaozuo.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/rizhiguanli/xitongwaibujiaohu.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="static/js/rukuguanli/rukujihua.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/rukuguanli/rukurenwu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/rukuguanli/rukuzuoye.js" type="text/javascript" charset="utf-8"></script>
+		
+		<script src="static/js/chukuguanli/chukujihua.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/chukuguanli/chukurenwu.js" type="text/javascript" charset="utf-8"></script>
+		<script src="static/js/chukuguanli/chukuzuoye.js" type="text/javascript" charset="utf-8"></script>
+		
+		
+		<script src="static/js/kjs/jquery.slimscroll.min.js"></script>
+
+		<!-- Custom and plugin javascript -->
+		<script src="static/js/kjs/inspinia.js"></script>
+		<script src="static/js/kjs/pace.min.js"></script>
+		<!--新添-->
+
+<!--密码修改-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="xiugaimima">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">用户密码修改</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline">
+						<div class="form-group" style="width:100%">
+							<p>
+								<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">原密码：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='mima1' style="width: 200px;border-color:{{red}};" />
+							</p>
+							<p>
+								<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">新密码：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='mima2' style="width: 200px;border-color:{{red}};" />
+							</p>
+							<p>
+								<label for="appNameQuery" style="margin: 10px;">确认密码：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='mima3' style="width: 200px;border-color:{{red}};" />
+							</p>
+							
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='mima_save()' style="margin: 10px "><i class="fa fa-search"></i>保存</button>
+					<button id="resetBtn" type="reset" ng-click='mima_rest()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	
+	<!--设置-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="shezhi">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">系统设置</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline">
+						<div class="form-group" style="width:100%">
+							<p>
+								<span  style="margin: 10px;font-weight: 700;">是否连接营销账号：</span>
+								<label class="radio-inline">
+								  <input type="radio" name="inlineRadioOptions" id="inlineRadio1" value="0" ng-model='suo'> 是
+								</label>
+								<label class="radio-inline">
+								  <input type="radio" name="inlineRadioOptions2" id="inlineRadio2" value="2" ng-model='suo'> 否
+								</label>
+							</p>
+							<p>
+								<label for="appNameQuery" style="margin: 10px;">营销账号：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='yingxiao_zhanghao' style="width: 200px;" />
+							</p>
+							<p>
+								<label for="appNameQuery2" style="margin: 10px;">营销密码：</label>
+								<input type="text" id="appNameQuery2" class="form-control" ng-model='yingxiao_mima' style="width: 200px;" />
+							</p>							
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='shezhi_save()' style="margin: 10px ">保存</button>				
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+	</body>
+	
+
+</html>

@@ -1,0 +1,174 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>系统外部交互日志</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="index.html">首页</a>
+			</li>
+			<li>
+				<a>日志管理</a>
+			</li>
+			<li class="active">
+				<strong>系统外部交互日志</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">查询条件</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group" style="width:100%">
+					<div style="display: inline-block;">
+						<label for="appNameQuery1" style="margin: 10px">服务器名：</label>
+						<input type="text" id="appNameQuery1" class="form-control" ng-model='fuwu_name' style="width: 200px" />
+					</div>
+					
+					<div style="display: inline-block;">
+						<label for="appNa" style="margin: 10px;margin-right: 36px;">日期：</label>
+						<input type="text" id="riqi" class="form-control" ng-model='riqi' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery2" style="margin: 10px;margin-right: 36px;">入参：</label>
+						<input type="text" id="appNameQuery2" class="form-control" ng-model='rucan' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery3" style="margin: 10px;margin-right: 36px;">出参：</label>
+						<input type="text" id="appNameQuery3" class="form-control" ng-model='chucan' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery4" style="margin: 10px;margin-right: 23px;">发送方：</label>
+						<input type="text" id="appNameQuery4" class="form-control" ng-model='fasong' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery5" style="margin: 10px;margin-right: 23px;">接收方：</label>
+						<input type="text" id="appNameQuery5" class="form-control" ng-model='jieshou' style="width: 200px" />
+					</div>
+					
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			<p style="display: inline-block;" ng-repeat='x in narr2'>
+				<button type="button" class="btn btn-primary" ng-click='do(x.BTN_FUN_LINK)' style="margin: 2px;"><i class="fa fa-plus"></i>{{x.BTN_NAME}}</button>
+			</p>
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th><input type="checkbox" name="box" id="" ng-model="all" ng-click='alllist($event)' /></th>
+						<th>服务名</th>
+						<th>年月</th>
+						<th>日期</th>
+						<th>开始时间</th>
+						<th>结束时间</th>
+						<th>入参</th>
+						<th>出参</th>
+						<th>状态</th>
+						<th>发送方</th>
+						<th>接收方</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td><input type="checkbox" name="{{x.ID}}" id="" ng-checked="all" ng-click='idlist($event)' value="{{$index}}" /></td>
+						<td>{{x.SERVICE_NAME}}</td>
+						<td>{{x.MONTH}}</td>
+						<td>{{x.DAY}}</td>
+						<td>{{x.ST_TIME}}</td>
+						<td>{{x.END_TIME}}</td>
+						<td>{{x.IN_PARAM}}</td>
+						<td>{{x.OUT_PARAM}}</td>
+						<td>{{x.STATUS | status3}}</td>
+						<td>{{x.MSG_FROM}}</td>
+						<td>{{x.MSG_TO}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+	<!--查看-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="chakan">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">系统外部交互日志</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline" novalidate>
+						<div class="form-group" style="width:100%">
+							<p style="display: inline-block;">
+								<label for="appNameQuery" style="margin: 10px;">服务器名：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='m1' style="width: 150px" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery" style="margin: 10px;margin-right:36px;">年月：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='m2' style="width: 150px" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery" style="margin: 10px;margin-right:36px;">日期：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='m3' style="width: 150px" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery5" style="margin: 10px;">开始时间：</label>
+								<input type="text" id="appNameQuery5" class="form-control" ng-model='m4' style="width: 150px;" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery" style="margin: 10px;">结束时间：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='m5' style="width: 150px" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery6" style="margin: 10px;margin-right:35px;">出参:</label>
+								<textarea id="appNameQuery6" class="form-control" rows="4" ng-model='m6' style="margin: 10px 0;"></textarea>
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery6" style="margin: 10px;margin-right:35px;">入参:</label>
+								<textarea id="appNameQuery6" class="form-control" rows="4" ng-model='m7' style="margin: 10px 0;"></textarea>
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery5" style="margin: 10px;margin-right:36px;">状态：</label>
+								<select class=" form-control" id="devLanguageQuery1" search="search" style="width: 150px" ng-model='m8' ng-options="y.value as y.name for y in WebServiceStatus">
+											</select>
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery" style="margin: 10px;margin-right:23px;">发送方：</label>
+								<input type="text" id="appNameQuery" class="form-control" ng-model='m9' style="width: 150px" />
+							</p>
+							<p style="display: inline-block;">
+								<label for="appNameQuery5" style="margin: 10px;margin-right:23px;">接收方：</label>
+								<input type="text" id="appNameQuery5" class="form-control" ng-model='m10' style="width: 150px;" />
+							</p>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+</div>

@@ -1,0 +1,184 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>出库作业管理</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="index.html">首页</a>
+			</li>
+			<li>
+				<a>出库管理</a>
+			</li>
+			<li class="active">
+				<strong>出库作业管理</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">查询条件</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group" style="width:100%">
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px">作业编号：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='zuoye_code' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px">营销单号：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='yingxiao_code' style="width: 200px" />
+					</div>
+					
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px">任务单号：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='renwu_code' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">箱条码：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='xiang_code' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery4" style="margin: 10px;margin-right: 36px;">状态：</label>
+						<select class=" form-control" id="devLanguageQuery2" search="search" style="width: 200px" ng-model='status'>
+							<option value="">全部</option>
+							<option value="0" selected="selected">未完成</option>
+							<option value="2">完成</option>
+						</select>
+					</div>
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			<p style="display: inline-block;" ng-repeat='x in narr2'>
+				<button type="button" class="btn btn-primary" ng-click='do(x.BTN_FUN_LINK)' style="margin: 2px;"><i class="fa fa-plus"></i>{{x.BTN_NAME}}</button>
+			</p>
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th><input type="checkbox" name="box" id="" ng-model="all" ng-click='alllist($event)' /></th>
+						<th>作业编号</th>
+						<th>任务单号</th>						
+						<th>营销单号</th>
+						<th>开始位置</th>
+						<th>终止位置</th>
+						<th>开始时间</th>
+						<th>结束时间</th>
+						<th>箱条码</th>
+						<th>作业类型</th>
+						<th>状态</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td><input type="checkbox" name="{{x.ID}}" id="" ng-checked="all" ng-click='idlist($event)' value="{{$index}}" /></td>
+						<td>{{x.PLC_TASK_ID}}</td>
+						<td>{{x.TASK_NO}}</td>
+						<td>{{x.APP_NO}}</td>
+						<td>{{x.START_LOCATION}}</td>
+						<td>{{x.END_LOCATION}}</td>
+						<td>{{x.START_TIME}}</td>
+						<td>{{x.END_TIME}}</td>
+						<td>{{x.BAR_CODE}}</td>
+						<td>{{x.WORK_TYPE}}</td>
+						<td>{{x.STATUS | status2}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+	<!--查看-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="chakans">
+		<div class="modal-dialog" role="document" style="width: 75%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">作业信息查看</h4>
+				</div>
+				<div class="modal-body">
+					<div class="container-fluid">
+						<div class="panel panel-default" style="margin-top: 20px;">
+							<div class="panel-heading">作业信息</div>
+							<div class="panel-body">
+								<form class="form-inline">
+									<div class="form-group" style="width:100%">
+										<div style="display: inline-block;">
+											<label for="devLanguageQuery2" style="margin: 10px;">作业编号：</label>
+											<input type="text" id="devLanguageQuery2" class="form-control" ng-model='work_code2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px">营销单号：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='yingxiao_code2' style="width: 200px" />
+										</div>
+										
+										<div style="display: inline-block;">
+											<label for="appNameQuery3" style="margin: 10px;">任务单号：</label>
+											<input type="text" class="form-control" ng-model='renwu_code2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">箱条码：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='xiangtiaoma2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;">开始位置：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='kaishiweizhi2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery4" style="margin: 10px;">结束位置：</label>
+											<input type="text" id="appNameQuery4" class="form-control" ng-model='jieshuweizhi2' style="width: 200px" />
+										</div>
+										
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;">开始时间：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='kaishishijian2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;">完成时间：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='wanchengshijian2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;">作业类型：</label>
+											<input type="text" id="appNameQuery" class="form-control" ng-model='work_type2' style="width: 200px" />
+										</div>
+										<div style="display: inline-block;">
+											<label for="appNameQuery" style="margin: 10px;margin-right: 36px;">状态：</label>
+											<select class=" form-control" id="devLanguageQuery1" search="search" style="width: 200px" ng-model='status2' ng-options="y.value as y.name for y in WorkStatus">
+											</select>
+										</div>
+
+									</div>
+								</form>
+							</div>
+						</div>
+						
+					</div>
+					<div class="modal-footer">
+						<button class="btn btn-primary" style="margin: 10px ;" ng-click='update_status()' >更新状态</button>
+						<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+					</div>
+				</div>
+				<!-- /.modal-content -->
+			</div>
+			<!-- /.modal-dialog -->
+		</div>
+		<!-- /.modal -->
+	</div>
+</div>

@@ -1,0 +1,141 @@
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>货位箱维护</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="index.html">首页</a>
+			</li>
+			<li>
+				<a>库房管理</a>
+			</li>
+			<li class="active">
+				<strong>货位箱维护</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="panel panel-default" style="margin-top: 20px;">
+		<div class="panel-heading">查询条件</div>
+		<div class="panel-body">
+			<form class="form-inline">
+				<div class="form-group" style="width:100%">
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px">货位编码：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='huowei_no' style="width: 200px" />
+					</div>
+					<div style="display: inline-block;">
+						<label for="appNameQuery" style="margin: 10px;margin-right: 23px;">箱条码：</label>
+						<input type="text" id="appNameQuery" class="form-control" ng-model='xiang_code' style="width: 200px" />
+					</div>	
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='submitf()' style="margin: 10px "><i class="fa fa-search"></i> 查询</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+				</div>
+			</form>
+		</div>
+	</div>
+	<div class="panel panel-default">
+		<div class="panel-heading" style="background-color: #FFFFFF;">
+			<p style="display: inline-block;" ng-repeat='x in narr2'>
+				<button  type="button" class="btn btn-primary" ng-click='do(x.BTN_FUN_LINK)' style="margin: 2px;"><i class="fa fa-plus"></i>{{x.BTN_NAME}}</button>
+			</p>
+		</div>
+		<div class="table-responsive">
+			<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+				<thead>
+					<tr>
+						<th>序号</th>
+						<th><input type="checkbox" name="box" id="" ng-model="all" ng-click='alllist($event)' /></th>
+						<th>ID</th>
+						<th>库房ID</th>
+						<th>库房</th>
+						<th>库区</th>
+						<th>货位编号</th>
+						<th>箱条码</th>
+					</tr>
+				</thead>
+				<tbody id="contentBody">
+					<tr ng-repeat='x in lists.root'>
+						<td>{{x.ROWNUM_}}</td>
+						<td><input type="checkbox" name="{{x.ID}}" id="" ng-checked="all" ng-click='idlist($event)' value="{{$index}}" /></td>
+						<td>{{x.ID}}</td>
+						<td>{{x.WH_ID}}</td>
+						<td>{{x.WH_HOME}}</td>
+						<td>{{x.WH_AREA}}</td>
+						<td>{{x.LOC_BAR_CODE}}</td>
+						<td>{{x.BAR_CODE}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+
+	<!--添加与修改-->
+	<div class="modal fade" tabindex="-1" role="dialog" id="chakan">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title">货位箱维护管理</h4>
+				</div>
+				<div class="modal-body">
+					<form class="form-inline" novalidate>
+						<div class="form-group" style="width:100%">
+							<div style="display: inline-block;">
+						<label for="devLanguageQuery" style="margin: 10px;margin-right: 36px;">库区：</label>
+						<select class=" form-control" id="devLanguageQuery" search="search" style="width: 200px" ng-model='m1'>
+							<option value="" selected="selected">--请选择--</option>
+							<option value="{{x.ID}}" ng-repeat='x in fmenu1'>{{x.WH_AREA}}</option>
+						</select>
+					</div>
+					<div style="display: inline-block;">
+						<label for="devLanguageQuery" style="margin: 10px;margin-right: 49px;">排：</label>
+						<select class=" form-control" id="devLanguageQuery" search="search" style="width: 200px" ng-model='m2'>
+							<option value="" selected="selected">--请选择--</option>
+							<option value="{{x.code}}" ng-repeat='x in fmenu2'>{{x.code}}</option>
+						</select>
+					</div>
+					<div style="display: inline-block;">
+						<label for="devLanguageQuery" style="margin: 10px;margin-right: 49px;">列：</label>
+						<select class=" form-control" id="devLanguageQuery" search="search" style="width: 200px" ng-model='m3'>
+							<option value="" selected="selected">--请选择--</option>
+							<option value="{{x.code}}" ng-repeat='x in fmenu3'>{{x.code}}</option>
+						</select>
+					</div>
+					<div style="display: inline-block;">
+						<label for="devLanguageQuery" style="margin: 10px;margin-right: 49px;">层：</label>
+						<select class=" form-control" id="devLanguageQuery" search="search" style="width: 200px" ng-model='m4'>
+							<option value="" selected="selected">--请选择--</option>
+							<option value="{{x.code}}" ng-repeat='x in fmenu4'>{{x.code}}</option>
+						</select>
+					</div>
+						<div style="display: inline-block;">	
+							<label for="appNameQuery" style="margin: 10px;">箱条码：</label>
+							<input type="text" id="appNameQuery" class="form-control" ng-model='m5' style="width: 150px;border-color:{{red}};" />
+						</div>
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button id="queryBtn" type="button" class="btn btn-primary" ng-click='save()' style="margin: 10px "><i class="fa fa-search"></i>保存</button>
+					<button id="resetBtn" type="reset" ng-click='submitcl2()' class="btn btn-primary" style="margin: 10px "><i class="fa fa-trash"></i>&nbsp;重置</button>
+					<button id="resetBtn" type="reset" class="btn btn-primary" style="margin: 10px " data-dismiss="modal">关闭</button>
+				</div>
+			</div>
+			<!-- /.modal-content -->
+		</div>
+		<!-- /.modal-dialog -->
+	</div>
+	<!-- /.modal -->
+
+</div>

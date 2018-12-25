@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>cors test page</title>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script>
+	// 在Angular中跨域cookie需要进行一些设置:
+	// $http.post(url, {withCredentials: true, ...})
+	//或者
+	// $http({withCredentials: true, ...}).post(...)
+	//或者
+	// .config(function ($httpProvider) {
+	// $httpProvider.defaults.withCredentials = true;
+	// }
+	//设置AJAX的全局默认选项
+	$.ajaxSetup({
+		url : "/jf/login/login", // 默认URL
+		type : "POST", // 默认使用POST方式
+		dataType : "json", // 默认返回json数据
+		headers : { // 默认添加请求头
+		},
+		xhrFields : {
+			withCredentials : true
+		},
+		beforeSend : function(xhr) {
+			var url = this.url.toLowerCase();
+			if (url.indexOf("http://") > -1 || url.indexOf("https://") > -1)
+				;
+			else
+				this.url = "http://116.62.21.119:18080/wms/" + this.url;
+		},
+		error : function(jqXHR, textStatus, errorMsg) {
+			// 出错时默认的处理函数
+			// jqXHR 是经过jQuery封装的XMLHttpRequest对象
+			// textStatus 可能为： null、"timeout"、"error"、"abort"或"parsererror"
+			// errorMsg 可能为： "Not Found"、"Internal Server Error"等
+
+			// 提示形如：发送AJAX请求到"/index.html"时出错[404]：Not Found
+			alert('发送AJAX请求到"' + this.url + '"时出错[' + jqXHR.status + ']：'
+					+ errorMsg);
+		}
+	});
+	function login() {
+		$
+				.ajax({
+					url : "jf/login/login",
+					type : "post",
+					dataType : "json",
+					timeout : 10000,
+					data : {
+						user_name : 'admin',
+						password : '123456'
+					},
+					success : function(data) {
+						alert(JSON.parse(data.data).NAME);
+						$("#result").append(
+								JSON.stringify(data, null, 4) + "<br />\n");
+						console.log(data);
+					},
+					error : function(XMLHttpRequest, textStatus, errorThrown) {
+						$("#result").append(textStatus + "<br />");
+					}
+				});
+	}
+	function loadData() {
+		$.ajax({
+			url : "http://116.62.21.119:18080/wms/jf/sys/user/getUserAndMenus",//getList
+			type : "GET",
+			dataType : "json",
+			timeout : 10000,
+			data : {
+				start : 1,
+				limit : 5
+			},
+			success : function(data) {
+				alert(data.user.NAME);
+				$("#data").append(JSON.stringify(data, null, 2) + "<br />\n");
+				console.log(data);
+			},
+			error : function(XMLHttpRequest, textStatus, errorThrown) {
+				$("#data").append(textStatus + "<br />");
+			}
+		});
+	}
+	$(function() {
+		$("#host").append("origin:" + window.location.origin);
+	});
+	function formatJson(sourceJson) {
+		$("#targetjson").val($(sourceJson).text());
+	}
+</script>
+</head>
+<body>
+	<div id="host"></div>
+	<textarea name="targetjson" id="targetjson" rows="35"
+		style="width: 100%; display: none;">  </textarea>
+	<button onclick="login()">login</button>
+	<input type="button" onclick="formatJson('#result');" value="美化" />
+	<input type="button" onclick="javascript:$('#targetjson').toggle();"
+		value="开关" />
+	<div id="result" style="width: 100%"></div>
+	<button onclick="loadData()">loadData</button>
+	<input type="button" onclick="formatJson('#data');" value="美化" />
+	<div id="data" style="width: 100%"></div>
+</body>
+</html>

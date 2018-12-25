@@ -1,0 +1,127 @@
+<style type="text/css">
+	.actives{
+		font-weight: 900;
+		color: green;
+	}
+</style>
+
+<div class="row wrapper border-bottom white-bg page-heading">
+	<div class="col-lg-10">
+		<h2>货位显示</h2>
+		<ol class="breadcrumb">
+			<li>
+				<a href="index.html">首页</a>
+			</li>
+			<li>
+				<a>库房管理</a>
+			</li>
+			<li class="active">
+				<strong>货位显示</strong>
+			</li>
+		</ol>
+	</div>
+	<div class="col-lg-2">
+
+	</div>
+</div>
+<!--头目录-->
+
+<div class="container-fluid">
+	<div class="row" style="margin-top: 20px;">
+		<div class=" col-xs-8 col-sm-8 col-md-8 col-lg-8">
+			
+			<div class="panel panel-default"  ng-repeat='x in lists2'>
+				<div class="panel-heading">第{{$index+1}}排</div>
+				<div class="table-responsive">
+					<table class="table  table-bordered " style="font-family: Helvetica, 微软雅黑;text-align: center;">
+						<thead>
+							<tr>
+								<th>层\列</th>
+								<th ng-repeat='y in list_col'>{{y}}</th>
+							</tr>
+						</thead>
+						<tbody id="contentBody">
+							<tr ng-repeat='q in x'>
+								<td>{{maxLevel -$index}}</td>
+								<td ng-repeat='a in q' ng-click='butt($event)' id='{{a.LOC_BAR_CODE}}' name='{{a.ID}}' ng-style="sty{{a.STORE_STATUS}}" ng-class='{actives: currentId == a.LOC_BAR_CODE}'>{{a.RUN_STATUS}}</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			
+		</div>
+		<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" >
+			<div class="panel panel-default "> 
+			<div class="panel-heading">
+				<p style="font-weight: 600;">操作</p>
+				<button id="queryBtn" type="button" class="btn btn-primary btn-xs" ng-click='ref()' >刷新</button>
+				<button id="resetBtn" type="button" ng-click='rengong_chuku()' class="btn btn-primary btn-xs">人工出库</button>				
+			</div>
+					
+			<div class="panel-heading">
+				<p style="font-weight: 600;">图例说明</p>
+				<div class="row">
+					<div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+						<p>存储状态</p>
+						<ul style="margin: 0;padding: 0;">
+							<li style="background: #fbe3e4;min-width: 60px;">空货位</li>
+							<li style="background: #2874ce;color: #FFFFFF;min-width: 60px;">有货货位</li>
+							<li style="background: #b8860b;color: #FFFFFF;min-width: 60px;">选定货位</li>
+							<li style="background: #c00000;color: #FFFFFF;min-width: 60px;">异常货位</li>
+						</ul>
+					</div>
+					<div class=" col-xs-8 col-sm-8 col-md-8 col-lg-8">
+						<p>运行状态</p>
+						<ul style="margin: 0;padding: 0;">
+							<li>R（运行）</li>
+							<li>E（待用）</li>
+							<li>S（选定）</li>
+							<li>D（禁用）</li>
+						</ul>
+					</div>
+				</div>
+							
+			</div>		
+			</div>
+
+			<div class="panel panel-default "> 
+				<div class="panel-heading">货位列表信息{{hw_xx}}</div>
+				<div class="table-responsive">
+					<table class="table  table-bordered table-hover" style="font-family: Helvetica, 微软雅黑;">
+						<thead>
+							<tr>
+								<th>序号</th>
+								<th>箱条码</th>
+								<th>表条码</th>
+								<th>资产号</th>
+								<th>设备类别</th>
+								<th>位置</th>
+								<th>备注</th>								
+							</tr>
+						</thead>
+						<tbody id="contentBody">
+							<tr ng-repeat='z in lists_right'>
+								<td>{{z.ROWNUM_}}</td>								
+								<td>{{z.BOX_BAR_CODE}}</td>
+								<td>{{z.BAR_CODE}}</td>
+								<td>{{z.ASSET_NO}}</td>
+								<td>{{z.EQUIP_CATEG_NAME}}</td>
+								
+								<td></td>
+								<td></td>								
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+			</div>
+			<!-- 分页 -->
+	<div class="pager">
+		<pager page-count="pageCount" current-page="currentPage" on-page-change="onPageChange()" first-text="首页" next-text="下一页" prev-text="上一页" last-text="尾页" show-goto="true" goto-text="跳转到"></pager>
+	</div>
+	<!-- 分页 -->
+		</div>
+	</div>
+</div>
